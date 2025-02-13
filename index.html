@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
     <canvas id="bg-canvas"></canvas>
@@ -18,53 +22,60 @@
             <a href="#video-section" class="nav-link">Video</a>
             <a href="#pricing" class="nav-link">Pricing</a>
         </nav>
+        <div class="theme-switch">
+            <input type="checkbox" id="theme-toggle" title="Toggle theme">
+            <label for="theme-toggle" class="switch-label">
+                <i class="fas fa-moon"></i>
+                <i class="fas fa-sun"></i>
+            </label>
+        </div>
     </header>
 
-    <section id="hero">
+    <section id="hero" data-aos="fade-up">
         <h1>Handcrafted, home-made masterpieces</h1>
         <p>made for music, made for you</p>
         <a href="#form-section" class="btn">Get Started</a>
     </section>
 
     <section id="features">
-        <div class="feature-box">
-            <img src="feature1.jpg" alt="Feature 1">
+        <div class="feature-box" data-aos="fade-up">
+            <i class="fas fa-music fa-3x"></i>
             <h3>High Performance</h3>
             <p>Optimized for music.</p>
         </div>
-        <div class="feature-box">
-            <img src="feature2.jpg" alt="Feature 2">
+        <div class="feature-box" data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-star fa-3x"></i>
             <h3>Quality</h3>
             <p>Works seamlessly with your favorite tools.</p>
         </div>
-        <div class="feature-box">
-            <img src="feature3.jpg" alt="Feature 3">
+        <div class="feature-box" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-check-circle fa-3x"></i>
             <h3>Reliable</h3>
             <p>Top-notch product.</p>
         </div>
     </section>
 
-    <section id="video-section">
+    <section id="video-section" data-aos="fade-up">
         <h2>Watch Our Product in Action</h2>
         <div class="video-container">
             <iframe id="video" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>
         </div>
     </section>
 
-    <section id="pricing">
+    <section id="pricing" data-aos="fade-up">
         <h2>Choose Your Plan</h2>
         <div class="pricing-container">
-            <div class="plan">
+            <div class="plan" data-aos="fade-up" data-aos-delay="100">
                 <h3>Basic</h3>
                 <p>$9.99/month</p>
                 <a href="#" class="btn">Sign Up</a>
             </div>
-            <div class="plan">
+            <div class="plan" data-aos="fade-up" data-aos-delay="200">
                 <h3>Pro</h3>
                 <p>$19.99/month</p>
                 <a href="#" class="btn">Sign Up</a>
             </div>
-            <div class="plan">
+            <div class="plan" data-aos="fade-up" data-aos-delay="300">
                 <h3>Enterprise</h3>
                 <p>$49.99/month</p>
                 <a href="#" class="btn">Sign Up</a>
@@ -72,18 +83,20 @@
         </div>
     </section>
 
-    <section id="form-section">
+    <section id="form-section" data-aos="fade-up">
         <h2>Subscribe for Updates</h2>
         <form id="form" action="https://www.freecodecamp.com/email-submit">
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
-            <input type="submit" id="submit" value="Subscribe">
+            <input type="submit" id="submit" value="Subscribe" class="btn">
         </form>
     </section>
 
-    <footer>
+    <footer data-aos="fade-up">
         <p>© 2025 Original trombone. All rights reserved.</p>
     </footer>
 
     <script src="3d-background.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>

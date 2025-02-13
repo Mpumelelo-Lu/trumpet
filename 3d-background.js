@@ -63,3 +63,15 @@ function onWindowResize() {
 window.addEventListener('resize', onWindowResize);
 window.addEventListener('load', init);
 window.addEventListener('load', animate);
+
+// Initialize AOS
+AOS.init({
+    duration: 800,
+    once: true
+});
+
+// Theme switcher
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('change', () => {
+    document.body.classList.toggle('dark-mode');
+});

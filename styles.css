@@ -4,6 +4,26 @@
     box-sizing: border-box;
 }
 
+:root {
+    --primary-color: #ffd700;
+    --text-color: #333;
+    --bg-color: #ffffff;
+    --glow-color: rgba(255, 215, 0, 0.6);
+}
+
+.dark-mode {
+    --text-color: #ffffff;
+    --bg-color: #121212;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: all 0.3s ease;
+}
+
 #bg-canvas {
     position: fixed;
     top: 0;
@@ -12,11 +32,6 @@
     pointer-events: none;
     width: 100%;
     height: 100%;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
 }
 
 header {
@@ -29,6 +44,11 @@ header {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+    transition: background-color 0.3s ease;
+}
+
+.dark-mode header {
+    background: rgba(18, 18, 18, 0.9);
 }
 
 #header-img {
@@ -42,14 +62,50 @@ header {
 
 .nav-link {
     text-decoration: none;
-    color: #333;
+    color: var(--text-color);
     font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.theme-switch {
+    position: relative;
+    margin-left: 20px;
+}
+
+.switch-label {
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.switch-label i {
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.dark-mode .fa-sun {
+    color: var(--primary-color);
+}
+
+.fa-moon {
+    color: #666;
+}
+
+.dark-mode .fa-moon {
+    color: var(--primary-color);
 }
 
 section {
     background-color: rgba(255, 255, 255, 0.9);
     padding: 4rem 2rem;
     margin: 2rem 0;
+    transition: background-color 0.3s ease;
+}
+
+.dark-mode section {
+    background-color: rgba(18, 18, 18, 0.9);
 }
 
 #hero {
@@ -60,18 +116,28 @@ section {
 .btn {
     display: inline-block;
     padding: 0.8rem 2rem;
-    background: #007bff;
-    color: white;
+    background: var(--primary-color);
+    color: #333;
     text-decoration: none;
     border-radius: 5px;
     margin-top: 1rem;
+    transition: all 0.3s ease;
 }
+
+.btn:hover {
+    box-shadow: 0 0 20px var(--glow-color);
+    transform: translateY(-2px);
+}
+
+#theme-toggle {
+    display: none;
+}
+/* hiding that ugly checkbox */
 
 #features {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
-    padding: 4rem 2rem;
 }
 
 .feature-box {
@@ -80,12 +146,16 @@ section {
     border-radius: 10px;
     background: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
-.feature-box img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+.dark-mode .feature-box {
+    background: #1a1a1a;
+    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
+}
+
+.feature-box i {
+    color: var(--primary-color);
     margin-bottom: 1rem;
 }
 
@@ -118,10 +188,12 @@ section {
     border-radius: 10px;
     background: white;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
-#form-section {
-    text-align: center;
+.dark-mode .plan {
+    background: #1a1a1a;
+    box-shadow: 0 2px 5px rgba(255,255,255,0.1);
 }
 
 form {
@@ -136,21 +208,26 @@ input[type="email"] {
     padding: 0.8rem;
     border: 1px solid #ddd;
     border-radius: 5px;
+    background: white;
+    color: #333;
+    transition: all 0.3s ease;
 }
 
-input[type="submit"] {
-    padding: 0.8rem;
-    background: #007bff;
+.dark-mode input[type="email"] {
+    background: #1a1a1a;
+    border-color: #333;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
 footer {
     text-align: center;
     padding: 2rem;
     background: rgba(255, 255, 255, 0.9);
+    transition: background-color 0.3s ease;
+}
+
+.dark-mode footer {
+    background: rgba(18, 18, 18, 0.9);
 }
 
 @media (max-width: 768px) {
@@ -166,4 +243,13 @@ footer {
     #hero {
         padding-top: 160px;
     }
+}
+
+[data-aos] {
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
 }
