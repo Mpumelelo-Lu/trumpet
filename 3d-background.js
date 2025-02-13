@@ -1,4 +1,4 @@
-let scene, camera, renderer, trumpet;
+let scene, camera, renderer, cube;
 
 function init() {
     scene = new THREE.Scene();
@@ -12,27 +12,20 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     
+    // Create cube
+    const geometry = new THREE.BoxGeometry(2, 2, 2);
+    const material = new THREE.MeshPhongMaterial({ 
+        color: 0x00ff00,
+        shininess: 100
+    });
+    cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+    
+    // Lighting
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
     directionalLight.position.set(5, 5, 5);
     scene.add(ambientLight, directionalLight);
-    
-    const loader = new THREE.GLTFLoader();
-    loader.load(
-        'trumpet.glb',
-        function (gltf) {
-            trumpet = gltf.scene;
-            trumpet.scale.set(2, 2, 2);
-            trumpet.position.set(0, 0, -5);
-            scene.add(trumpet);
-        },
-        function (xhr) {
-            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        function (error) {
-            console.error('An error occurred loading the model:', error);
-        }
-    );
     
     camera.position.z = 5;
 }
@@ -40,10 +33,11 @@ function init() {
 function animate() {
     requestAnimationFrame(animate);
     
-    if (trumpet) {
+    if (cube) {
         const targetRotation = window.scrollY * 0.002;
-        trumpet.rotation.y += (targetRotation - trumpet.rotation.y) * 0.05;
-        trumpet.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+        cube.rotation.y += 0.01;
+        cube.rotation.x = targetRotation;
+        cube.position.y = Math.sin(Date.now() * 0.001) * 0.2;
     }
     
     renderer.render(scene, camera);
