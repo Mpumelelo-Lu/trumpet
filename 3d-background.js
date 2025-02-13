@@ -2,7 +2,7 @@ let scene, camera, renderer, trumpet;
 
 function init() {
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#bg-canvas'),
@@ -12,11 +12,11 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     
-    // Enhanced lighting for better visibility
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    // Powerful lighting setup for dramatic effect
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(5, 5, 5);
-    const backLight = new THREE.DirectionalLight(0xffffff, 1);
+    const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
     backLight.position.set(-5, -5, -5);
     scene.add(ambientLight, directionalLight, backLight);
     
@@ -25,9 +25,9 @@ function init() {
         './trumpet.glb',
         function (gltf) {
             trumpet = gltf.scene;
-            trumpet.scale.set(4, 4, 4); // Bigger trumpet
-            trumpet.position.set(0, 0, -10); // Positioned further back
-            trumpet.rotation.x = 0.2; // Slight tilt
+            trumpet.scale.set(8, 8, 8); // Much bigger trumpet
+            trumpet.position.set(0, 0, -5); // Brought forward
+            trumpet.rotation.x = 0.3; // Dramatic initial tilt
             scene.add(trumpet);
         },
         function (xhr) {
@@ -38,15 +38,17 @@ function init() {
         }
     );
     
-    camera.position.z = 15;
+    camera.position.z = 10;
 }
 
 function animate() {
     requestAnimationFrame(animate);
     
     if (trumpet) {
-        // Gentle continuous rotation
-        trumpet.rotation.y += 0.002;
+        // Dynamic scroll-based rotation
+        const scrollPosition = window.scrollY;
+        trumpet.rotation.y = scrollPosition * 0.005; // More pronounced rotation
+        trumpet.rotation.x = 0.3 + (scrollPosition * 0.001); // Added tilt variation
     }
     
     renderer.render(scene, camera);
