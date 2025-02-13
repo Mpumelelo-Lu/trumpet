@@ -1,8 +1,8 @@
-let scene, camera, renderer, cube;
+let scene, camera, renderer, trumpet;
 
 function init() {
     scene = new THREE.Scene();
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     
     renderer = new THREE.WebGLRenderer({
         canvas: document.querySelector('#bg-canvas'),
@@ -12,32 +12,41 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     
-    // Create cube
-    const geometry = new THREE.BoxGeometry(2, 2, 2);
-    const material = new THREE.MeshPhongMaterial({ 
-        color: 0x00ff00,
-        shininess: 100
-    });
-    cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-    
-    // Lighting
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+    // Enhanced lighting for better visibility
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
     directionalLight.position.set(5, 5, 5);
-    scene.add(ambientLight, directionalLight);
+    const backLight = new THREE.DirectionalLight(0xffffff, 1);
+    backLight.position.set(-5, -5, -5);
+    scene.add(ambientLight, directionalLight, backLight);
     
-    camera.position.z = 5;
+    const loader = new THREE.GLTFLoader();
+    loader.load(
+        './trumpet.glb',
+        function (gltf) {
+            trumpet = gltf.scene;
+            trumpet.scale.set(4, 4, 4); // Bigger trumpet
+            trumpet.position.set(0, 0, -10); // Positioned further back
+            trumpet.rotation.x = 0.2; // Slight tilt
+            scene.add(trumpet);
+        },
+        function (xhr) {
+            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+        },
+        function (error) {
+            console.error('An error occurred loading the model:', error);
+        }
+    );
+    
+    camera.position.z = 15;
 }
 
 function animate() {
     requestAnimationFrame(animate);
     
-    if (cube) {
-        const targetRotation = window.scrollY * 0.002;
-        cube.rotation.y += 0.01;
-        cube.rotation.x = targetRotation;
-        cube.position.y = Math.sin(Date.now() * 0.001) * 0.2;
+    if (trumpet) {
+        // Gentle continuous rotation
+        trumpet.rotation.y += 0.002;
     }
     
     renderer.render(scene, camera);
