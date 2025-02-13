@@ -13,20 +13,24 @@ function init() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     
     // Powerful lighting setup for dramatic effect
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2);
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 3);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.5);
     directionalLight.position.set(5, 5, 5);
-    const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    const backLight = new THREE.DirectionalLight(0xffffff, 2);
     backLight.position.set(-5, -5, -5);
-    scene.add(ambientLight, directionalLight, backLight);
+    const spotLight = new THREE.SpotLight(0xffffff, 2);
+    spotLight.position.set(0, 10, 0);
+    const bottomLight = new THREE.PointLight(0xffffff, 1.5);
+    bottomLight.position.set(0, -10, 0);
+    scene.add(ambientLight, directionalLight, backLight, spotLight, bottomLight);
     
     const loader = new THREE.GLTFLoader();
     loader.load(
         './trumpet.glb',
         function (gltf) {
             trumpet = gltf.scene;
-            trumpet.scale.set(8, 8, 8); // Much bigger trumpet
-            trumpet.position.set(0, 0, -5); // Brought forward
+            trumpet.scale.set(8, 8, 8); // Much much bigger trumpet
+            trumpet.position.set(0, 0, -2); // Brought more forward
             trumpet.rotation.x = 0.3; // Dramatic initial tilt
             scene.add(trumpet);
         },
